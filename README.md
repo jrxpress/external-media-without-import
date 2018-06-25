@@ -6,7 +6,7 @@ The plugin provides buttons and inputs in the 'Media' -> 'Add New' page, the med
 
 ## Installation
 
-* * * * * THEME MERGED VERSION * * * * *
+***** THEME MERGED VERSION *****
 
 ## Usage
 
@@ -26,6 +26,6 @@ You can also add an external media during the process of editing a post or page 
 
 Note that WordPress needs to know in advance the width and height of an image in order to correctly display it in the media library page and any post/page. In most cases, the plugin resolves these properties automatically without worrying you. But in rare cases, the plugin may fail to get the width and height of the image you specify when you click 'Add' in the 'Add a media from URL' panel. In that case, some input fields will show up and let you fill in the properties manually.
 
-## Changelog
+## Original Plugin Version
 
-[ Original Plugin Version ](https://github.com/zzxiang/external-media-without-import/pull/3).
+[https://github.com/zzxiang/external-media-without-import/](https://github.com/zzxiang/external-media-without-import/).
