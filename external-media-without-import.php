@@ -5,6 +5,7 @@
  *  Add external images to the media library without importing, i.e. uploading them to your WordPress site.
  * 
  *  @see https://github.com/jrxpress/external-media-without-import
+ *  @see https://github.com/zzxiang/external-media-without-import
  *  @see https://jrxpress.com
  * 
  *  @package jrXtube
@@ -25,17 +26,18 @@ add_action( 'admin_post_add_external_media_without_import', 'emwi\admin_post_add
 function init_emwi() {	
 	$style = 'emwi-css';
   #	$css_file = plugins_url( '/external-media-without-import.css', __FILE__ );
-	$css_file = get_template_directory_uri().'/css/external-media.css';
+	$css_file = get_template_directory_uri().'/external-media-without-import.css';
 	wp_register_style( $style, $css_file );
-  #	wp_register_style( 'emwi-css', trailingslashit(get_template_directory_uri()).'css/external-media.css' );
+  #	wp_register_style( 'emwi-css', trailingslashit(get_template_directory_uri()).'css/external-media-without-import.css' );
 	wp_enqueue_style( $style );
 	$script = 'emwi-js';
   #	$js_file = plugins_url( '/external-media-without-import.js', __FILE__ );
-	$js_file = get_template_directory_uri().'/js/external-media.js';
+	$js_file = get_template_directory_uri().'/external-media-without-import.js';
 	wp_register_script( $script, $js_file, array( 'jquery' ) );
-  #	wp_register_script( 'emwi-js', trailingslashit(get_template_directory_uri()).'js/external-media.js', array('jquery') );
+  #	wp_register_script( 'emwi-js', trailingslashit(get_template_directory_uri()).'js/external-media-without-import.js', array('jquery') );
 	wp_enqueue_script( $script );	
 }
+
 function add_submenu() {
 	add_submenu_page(
 		'upload.php',
@@ -46,6 +48,7 @@ function add_submenu() {
 		'emwi\print_submenu_page'
 	);
 }
+
 function post_upload_ui() {
 	$media_library_mode = get_user_option( 'media_library_mode', get_current_user_id() );
 ?>
@@ -70,6 +73,7 @@ function post_upload_ui() {
 	</div>
 <?php
 }
+
 function print_submenu_page() {
 ?>
 	<form action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
@@ -77,6 +81,7 @@ function print_submenu_page() {
 	</form>
 <?php
 }
+
 function print_media_new_panel( $is_in_upload_ui ) {
 ?>
 	<div id="emwi-media-new-panel" <?php if ( $is_in_upload_ui  ) : ?>style="display: none"<?php endif; ?>>
@@ -108,6 +113,7 @@ function print_media_new_panel( $is_in_upload_ui ) {
 	</div>
 <?php
 }
+
 function wp_ajax_add_external_media_without_import() {
 	$info = add_external_media_without_import();
 	$attachment_ids = $info['attachment_ids'];
@@ -124,7 +130,7 @@ function admin_post_add_external_media_without_import() {
 	$redirect_url = 'upload.php';
 	$urls = $info['urls'];
 	if ( ! empty( $urls ) ) {
-		$redirect_url = $redirect_url .  '?page=add-external-media-without-import&urls=' . urlencode( $urls );
+		$redirect_url = $redirect_url . '?page=add-external-media-without-import&urls=' . urlencode( $urls );
 		$redirect_url = $redirect_url . '&error=' . urlencode( $info['error'] );
 		$redirect_url = $redirect_url . '&width=' . urlencode( $info['width'] );
 		$redirect_url = $redirect_url . '&height=' . urlencode( $info['height'] );
@@ -133,6 +139,7 @@ function admin_post_add_external_media_without_import() {
 	wp_redirect( admin_url( $redirect_url ) );
 	exit;
 }
+
 function sanitize_and_validate_input() {
 	$raw_urls = explode( "\n", $_POST['urls'] );
 	$urls = array();
@@ -165,6 +172,7 @@ function sanitize_and_validate_input() {
 	$input['height'] = $height_int;
 	return $input;
 }
+
 function add_external_media_without_import() {
 	$input = sanitize_and_validate_input();
 	if ( isset( $input['error'] ) ) {
